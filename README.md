@@ -2,7 +2,6 @@
 M2M project between Arduino and ESP32 with Node-RED flows, using MQTT protocol.
 
 
-![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/tree/main/Node-RED-flow/print-flows.pdf)
 
 ***
 
@@ -24,11 +23,16 @@ M2M project between Arduino and ESP32 with Node-RED flows, using MQTT protocol.
 
 :small_blue_diamond: [Mosquitto Broker Terminal Test](#mosquitto-broker-terminal-test)
 
-:small_blue_diamond: [Android - MQTT Dashboard](#android---mqtt-dashboard)
-
 :small_blue_diamond: [ESP32 Code - Arduino Ide](#esp32-code---arduino-ide)
 
 :small_blue_diamond: [Results](#results)
+
+***
+
+### UART Protocol
+A universal asynchronous receiver-transmitter (UART) can refer to the protocol or the hardware, and as the name says, it is an asynchronous serial communication. A UART is used for full-duplex serial communication between devices equipped with this technology.
+Data transfer is done bit by bit, using a wire to send and a wire to receive. To be successful in communication, the parameters of the devices must match, such as baud-rate, data bits, parity and stop-bit.
+The simplicity of the application, makes its use very common in systems that do not require high communication speed.
 
 ***
 
@@ -52,7 +56,7 @@ https://www.raspberrypi.org/help/
 ***
 
 ### Application Topology
-![](https://github.com/MrFMach/Esp32-MQTT-PubSub/blob/main/media/topology.jpg)
+![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/topology.jpg)
 
 ***
 
@@ -154,39 +158,7 @@ If you got here, the broker is working correctly!!!
 
 ***
 
-### Android - MQTT Dashboard
-
-Follow the next steps to install and configure MQTT Dashbord on your Android device:
-
-![](https://github.com/MrFMach/Esp32-MQTT-PubSub/blob/main/media/dashboard1.jpg)
-
-1- Search for mqtt dashboard in the Play Store and install. Version of the app used: 0.6.8 of 09/25/2020.
-
-2- Add the broker.
-
-3- Fill in according to the broker configuration. Important fields: Raspberry IP, broker username and password.
-
-4- Now add the dashboard.
-
-5- "Standard".
-
-6- Add the buttons, configure them and then add "Text".
-
-7- Configure the first button. Important fields: Publish topic and Payload (message).
-
-![](https://github.com/MrFMach/Esp32-MQTT-PubSub/blob/main/media/dashboard2.jpg)
-
-8- Configure desired color and icon.
-
-9- Now, to make it easier, duplicate the button.
-
-10- Edit the color and name of the button. Do this for all buttons.
-
-11- The time has come to add "Text". Important fields: Publish and subscribe topics. Set the first to "inTopic".
-
-12- Configure the other one for "outTopic".
-
-13- Ready!
+### 
 
 ***
 
