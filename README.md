@@ -1,27 +1,33 @@
 # M2M-Arduino-ESP32-NodeRED
-M2M project between Arduino and ESP32 with Node-RED flows, using MQTT protocol.
-
-
+M2M project between Arduino and ESP32 using Node-RED flows.
 
 ***
 
-### Topics:
+## Topics:
+
+:small_blue_diamond: [Project Description](#project-description)
+
+:small_blue_diamond: [Application Topology](#application-topology)
+
+:small_blue_diamond: [UART Protocol](#uart-protocol)
 
 :small_blue_diamond: [MQTT Protocol](#mqtt-protocol)
 
 :small_blue_diamond: [Raspberry Pi](#raspberry-pi)
 
-:small_blue_diamond: [Application Topology](#application-topology)
+:small_blue_diamond::small_blue_diamond: [Mosquitto Broker](#mosquitto-broker)
+
+:small_blue_diamond::small_blue_diamond::small_blue_diamond: [Mosquitto Installation](#mosquitto-installation)
+
+:small_blue_diamond::small_blue_diamond::small_blue_diamond: [Mosquitto User Authentication](#mosquitto-user-authentication)
+
+:small_blue_diamond::small_blue_diamond::small_blue_diamond: [Mosquitto Broker Terminal Test](#mosquitto-broker-terminal-test)
+
+:small_blue_diamond::small_blue_diamond: [Python Application](#python-application])
+
+:small_blue_diamond::small_blue_diamond: [Node-RED](#node-red)
 
 :small_blue_diamond: [Wiring](#wiring)
-
-:small_blue_diamond: [Node-RED](#node-red)
-
-:small_blue_diamond: [Mosquitto Installation](#mosquitto-installation)
-
-:small_blue_diamond: [Mosquitto User Authentication](#mosquitto-user-authentication)
-
-:small_blue_diamond: [Mosquitto Broker Terminal Test](#mosquitto-broker-terminal-test)
 
 :small_blue_diamond: [ESP32 Code - Arduino Ide](#esp32-code---arduino-ide)
 
@@ -29,14 +35,39 @@ M2M project between Arduino and ESP32 with Node-RED flows, using MQTT protocol.
 
 ***
 
-### UART Protocol
+## Project Description
+A M2M (machine-to-machine) project witch make a connection between Arduino Uno and ESP32 boards.
+On the Arduin and ESP32 boards, status sensors and LEDs are connected. The Arduino leds signal the status of the sensor connected to the ESP32 and the ESP32 leds signal the status of the sensor connected to the Arduino. This flow was configured in Node-RED, and for communication the AURT and MQTT protocols were used.
+
+***
+
+## Application Topology
+The cycle starts in the Python application:
+
+the Python application publishes a message in the "esp32/led" topic of the MQTT broker
+
+ESP32 receives the message from the broker, of the subscribed topic (esp32/led), and in its application:
+- handles the message, turning the corresponding led on or off
+- reads the pressure and temperature sensor
+- publishes in the topics "esp32/press" and "esp32/temp", the read values of pressure and temperature
+
+...Incluir o fluxo do Node-red...
+
+now, the Python application receives the message from the broker, of the subscribed topic (arduino/led), and in its application:
+
+
+![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/topology.jpg)
+
+***
+
+## UART Protocol
 A universal asynchronous receiver-transmitter (UART) can refer to the protocol or the hardware, and as the name says, it is an asynchronous serial communication. A UART is used for full-duplex serial communication between devices equipped with this technology.
 Data transfer is done bit by bit, using a wire to send and a wire to receive. To be successful in communication, the parameters of the devices must match, such as baud-rate, data bits, parity and stop-bit.
 The simplicity of the application, makes its use very common in systems that do not require high communication speed.
 
 ***
 
-### MQTT Protocol
+## MQTT Protocol
 MQTT is a messaging protocol for TCP/IP networks.
 It is simple and light. Its basic architecture consists of broker and clients. The message exchange scheme is based on the Publish-Subscribe model.
 
@@ -45,39 +76,20 @@ http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
 
 ***
 
-### Raspberry Pi
+## Raspberry Pi
 Raspberry Pi is a series of small computers, which basically connects to a monitor, a keyboard and a mouse. There are several models, varying the available resources and performance.
 It is developed in the United Kingdom by the Raspberry Pi Foundation.
-In this application, Raspberry Pi 4 Model B with Raspbian operating system (based on Debian) was used.
+In this application, Raspberry Pi 4 Model B with Raspbian operating system (based on Debian) was used. Learn more at https://www.raspberrypi.org/help/
 
-Learn more at:
-https://www.raspberrypi.org/help/
+## We'll see next, the configuration of Mosquitto Broker, Python Application and Node-RED, all in Raspberry Pi.
 
-***
+### Mosquitto Broker
 
-### Application Topology
-![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/topology.jpg)
-
-***
-
-### Wiring
-![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/fritzing.png)
-
-***
-
-### Node-RED
-![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/flows.png)
-***
-![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/dashboard.png)
-
-### Mosquitto Installation
+#### Mosquitto Installation
 Install the Mosquitto Broker that is available in the Debian archive, following what is described:
 https://mosquitto.org/blog/2013/01/mosquitto-debian-repository/
 
-After installing the Mosquitto broker, install the Mosquitto Clients:
-```
-terminal commands
-```
+After installing the Mosquitto broker, install the Mosquitto Clients
 
 Install the Mosquitto Clients:
 ```
@@ -94,7 +106,7 @@ You will see "active running".
 
 ***
 
-### Mosquitto User Authentication
+#### Mosquitto User Authentication
 
 Stop the broker:
 ```
@@ -136,7 +148,7 @@ reboot
 
 ***
 
-### Mosquitto Broker Terminal Test
+#### Mosquitto Broker Terminal Test
 
 Open two terminals, one will be used for Subscribe and the other for Publish.
 
@@ -158,11 +170,27 @@ If you got here, the broker is working correctly!!!
 
 ***
 
-### 
+### Python Application
+
+### Node-RED
+
+![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/flows.png)
+***
+![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/dashboard.png)
 
 ***
 
-### ESP32 Code - Arduino Ide
+
+
+***
+
+## Wiring
+![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/fritzing.png)
+
+***
+
+
+## ESP32 Code - Arduino Ide
 
 Used libraries:
 ~~~c++
@@ -200,7 +228,7 @@ if (client.connect("espClient", "mqtt_user", "mqtt_password"))
 
 ***
 
-### Results
+## Results
 ![](https://github.com/MrFMach/Esp32-MQTT-PubSub/blob/main/media/results.jpg)
 
 If you want to track the message traffic via the terminal, just go back to the broker's test topic ( [here](#mosquitto-broker-terminal-test) ), open a terminal for Subscribe and replace the topic name with the application topic, for example "inTopic":
