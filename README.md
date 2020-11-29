@@ -75,17 +75,13 @@ Raspberry Pi is a series of small computers, which basically connects to a monit
 It is developed in the United Kingdom by the Raspberry Pi Foundation.
 In this application, Raspberry Pi 4 Model B with Raspbian operating system (based on Debian) was used. Learn more at https://www.raspberrypi.org/help/
 
-## We'll see next, the configuration of Mosquitto Broker, Python Application and Node-RED, all in Raspberry Pi.
+On the Raspberry Pi, will be running the Mosquitto MQTT broker, Node-RED and the Python application. Follow the next instructions.
 
-### Mosquitto Broker
+### Mosquitto Broker Installation
+See how to install Mosquitto on repository: https://github.com/MrFMach/Mosquitto-Broker-RaspberryPi
 
-#### Mosquitto Installation
-See in this repository how to install Mosquitto on Raspberry Pi: https://github.com/MrFMach/Mosquitto-Broker-RaspberryPi
-
-#### Node-RED Installation
-See in this repository how to install Mosquitto on Raspberry Pi: https://github.com/MrFMach/Mosquitto-Broker-RaspberryPi
-
-***
+### Node-RED Installation
+See how to install Mosquitto on page: https://nodered.org/docs/getting-started/raspberrypi
 
 ### Python Application
 
@@ -143,11 +139,6 @@ if (client.connect("espClient", "mqtt_user", "mqtt_password"))
 
 ## Results
 ![](https://github.com/MrFMach/M2M-Arduino-ESP32-NodeRED/blob/main/media/gif.gif)
-
-If you want to track the message traffic via the terminal, just go back to the broker's test topic ( [here](#mosquitto-broker-terminal-test) ), open a terminal for Subscribe and replace the topic name with the application topic, for example "inTopic":
-```
-mosquitto_sub -d -u username -P password -t inTopic
-```
 
 ***
 
