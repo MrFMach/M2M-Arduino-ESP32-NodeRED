@@ -5,7 +5,6 @@ import threading
 
 event = threading.Event()
 
-
 ser = serial.Serial(                          #start serial
     "/dev/ttyS0",
     baudrate = 4800,
@@ -13,7 +12,6 @@ ser = serial.Serial(                          #start serial
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
     timeout=2)
-
 
 def on_connect(client, userdata, flags, rc):  #callback 
     if rc == 0:
@@ -41,7 +39,6 @@ broker_address= "192.168.0.13"
 port = 1883
 user = "mrfmach"
 password = "mosquitto"
-
                                                    #init broker
 client = mqttClient.Client("Python")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
@@ -62,22 +59,9 @@ try:
         readArdu = ser.readline()
         print(readArdu)
         
-        readStatus = readArdu[0:1]
-        readDistance = readArdu[2:10]
+        event.wait(0.15)                            #cycle time  
+        client.publish("arduino/distance", readArdu)
         
-        event.wait(0.2)                            #cycle time
-        
-        client.publish("arduino/distance", readDistance)
-        
-        if (readStatus == b'o'):
-            client.publish("esp32/led", "o")
-        elif (readStatus == b'r'):
-            client.publish("esp32/led", "r")
-        elif (readStatus == b'y'):
-            client.publish("esp32/led", "y")
-        elif (readStatus == b'g'):
-            client.publish("esp32/led", "g")
-
 except KeyboardInterrupt:
     client.disconnect()
     client.loop_stop()
